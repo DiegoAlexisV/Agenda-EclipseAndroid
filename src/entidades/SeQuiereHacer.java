@@ -2,12 +2,12 @@ package entidades;
 
 import java.io.Serializable;
 
-public class SeHace implements Serializable{
+public class SeQuiereHacer implements Serializable{
 	private int idAct;
 	private int idf;
 	private int hora;
 	private int minuto;
-	public SeHace(int idAct, int idf, int hora, int minuto) {
+	public SeQuiereHacer(int idAct, int idf, int hora, int minuto) {
 
 		this.idAct = idAct;
 		this.idf = idf;

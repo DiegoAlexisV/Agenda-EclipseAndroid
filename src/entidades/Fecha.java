@@ -1,6 +1,8 @@
 package entidades;
 
-public class Fecha {
+import java.io.Serializable;
+
+public class Fecha implements Serializable{
 	private int idf;
 	private int dia;
 	private int mes;

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/textAdiAct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -25,7 +25,7 @@
         </EditText>
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/adiAct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Adionar Act" />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/textadifecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -44,7 +44,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/adifecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="adicionar fecha" />
@@ -55,14 +55,14 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/texteliAct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/eliAct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="eliminar act" />
@@ -73,14 +73,14 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/textelifecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/elifecha"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="eliminar fecha" />
@@ -92,14 +92,14 @@
         android:layout_weight="0.50" >
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/sequierehacer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.85"
             android:text="se quiere hacer" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/sehizo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.53"

@@ -32,6 +32,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{// hereda de la clase
 		db.execSQL("DROP TABLE IF EXIST "+utilidades.TABLA_ACTIVIDAD+"");
 		db.execSQL("DROP TABLE IF EXIST "+utilidades.TABLA_FECHA+"");
 		db.execSQL("DROP TABLE IF EXIST "+utilidades.TABLA_SEHACE+"");
+		db.execSQL("DROP TABLE IF EXIST "+utilidades.TABLA_SEQUIEREHACER+"");
 		onCreate(db);
 		// sirve para controlar las verciones de las tablas de la base de datos
 	}
