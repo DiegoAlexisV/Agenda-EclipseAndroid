@@ -6,13 +6,17 @@ public class Fecha implements Serializable{
 	private int idf;
 	private int dia;
 	private int mes;
-	private int año;
-	public Fecha(int idf, int dia, int mes, int año) {
+	private int ano;
+	public Fecha()
+	{
+		
+	}
+	public Fecha(int idf, int dia, int mes, int ano) {
 		super();
 		this.idf = idf;
 		this.dia = dia;
 		this.mes = mes;
-		this.año = año;
+		this.ano = ano;
 	}
 	public int getIdf() {
 		return idf;
@@ -32,11 +36,11 @@ public class Fecha implements Serializable{
 	public void setMes(int mes) {
 		this.mes = mes;
 	}
-	public int getAño() {
-		return año;
+	public int getAno() {
+		return ano;
 	}
-	public void setAño(int año) {
-		this.año = año;
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 	
 }

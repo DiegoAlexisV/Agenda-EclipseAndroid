@@ -6,11 +6,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ConexionSQLiteHelper extends SQLiteOpenHelper{// hereda de la clase de SQLite
-	
-	
-	
-	
-
+	 
 	public ConexionSQLiteHelper(Context context, String name,
 			CursorFactory factory, int version) {
 		super(context, name, factory, version);

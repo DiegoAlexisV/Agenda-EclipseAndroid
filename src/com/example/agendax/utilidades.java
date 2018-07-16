@@ -23,21 +23,21 @@ public class utilidades {
 	public static final String CREAR_TABLA_FECHA = 
 			"CREATE TABLE "+TABLA_FECHA+"("+CAMPO_IDF+" INTEGER PRIMARY KEY AUTOINCREMENT," +
 								""+CAMPO_DIA+" INTEGER," +
-								""+CAMPO_MES+" INTEGER" +
+								""+CAMPO_MES+" INTEGER," +
 								""+CAMPO_ANO+" INTEGER)";
 	
 	public static final String CREAR_TABLA_ACTIVIDAD = 
-			"CREATE TABLE "+TABLA_ACTIVIDAD+"("+CAMPO_IDACT+" INTEGER PRIMARY KEY AUTOINCREMENT" +
+			"CREATE TABLE "+TABLA_ACTIVIDAD+"("+CAMPO_IDACT+" INTEGER PRIMARY KEY AUTOINCREMENT," +
 									""+CAMPO_DESCRIPCION+" TEXT)";
 	
 	public static final String CREAR_TABLA_SEHACE = 
 			"CREATE TABLE "+TABLA_SEHACE+"("+CAMPO_IDF+" INTEGER," +
-								""+CAMPO_IDACT+" INTEGER" +
-								""+CAMPO_HORA+" INTEGER" +
+								""+CAMPO_IDACT+" INTEGER," +
+								""+CAMPO_HORA+" INTEGER," +
 								""+CAMPO_MINUTO+" INTEGER)";
 	public static final String CREAR_TABLA_SEQUIEREHACER = 
 			"CREATE TABLE "+TABLA_SEQUIEREHACER+"("+CAMPO_IDF+" INTEGER," +
-								""+CAMPO_IDACT+" INTEGER" +
-								""+CAMPO_HORA2+" INTEGER" +
+								""+CAMPO_IDACT+" INTEGER," +
+								""+CAMPO_HORA2+" INTEGER," +
 								""+CAMPO_MINUTO2+" INTEGER)";
 }
