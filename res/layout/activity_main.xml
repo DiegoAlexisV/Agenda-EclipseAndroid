@@ -27,12 +27,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/editText1"
-                android:layout_width="94dp"
+            <TextView
+                android:id="@+id/hora"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hora" />
-
+                android:text="hora"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
         <LinearLayout
@@ -41,7 +41,7 @@
             android:orientation="vertical" >
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/actividades"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content" />
 
@@ -58,7 +58,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/addSequih"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="add" />

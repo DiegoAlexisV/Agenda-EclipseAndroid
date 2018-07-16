@@ -156,12 +156,13 @@ public class AcionarBorrar extends Activity implements android.view.View.OnClick
 	private void adicionarActividadSql(String taact) {// adicionar a la base de datos con sentencias sql
 		ConexionSQLiteHelper conn= new ConexionSQLiteHelper(this,"bdagenda", null, 1);//enlaza con la BD
 		SQLiteDatabase db = conn.getWritableDatabase();//para editar
-		// insert into usuario (id,nombre,telefono) values (123,'cristian','498798');
+		 //insert into usuario (id,nombre,telefono) values (123,'cristian','498798');
 		String insert = 
 						"INSERT INTO "+utilidades.TABLA_ACTIVIDAD+
 						"("+utilidades.CAMPO_DESCRIPCION+") " +
-						"VALUES ("+taact+")";
+						"VALUES ('"+taact+"')";
 		db.execSQL(insert);
+		Toast.makeText(this,"añadido a la bd", Toast.LENGTH_LONG).show();
 		db.close();
 	}
 

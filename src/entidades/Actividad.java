@@ -5,6 +5,10 @@ import java.io.Serializable;
 public class Actividad implements Serializable{
 	private int idAct;
 	private String descripcion;
+	public Actividad() {
+		this.idAct = 0;
+		this.descripcion = "";
+	}
 	public Actividad(int idAct, String descripcion) {
 		this.idAct = idAct;
 		this.descripcion = descripcion;
