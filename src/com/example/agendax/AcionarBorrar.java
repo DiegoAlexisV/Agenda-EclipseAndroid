@@ -165,5 +165,6 @@ public class AcionarBorrar extends Activity implements android.view.View.OnClick
 		Toast.makeText(this,"añadido a la bd", Toast.LENGTH_LONG).show();
 		db.close();
 	}
+	
 
 }

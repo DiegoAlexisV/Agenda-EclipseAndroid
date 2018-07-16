@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -39,7 +40,9 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 	ArrayList<Actividad> listaActividad;
 	ArrayList<String> listaSpinnerActividad;
 	//
-	
+	//vars para almacenar los datos que se seleccione del Spinner
+	Fecha addfecha;
+	Actividad addActividad;
 	ConexionSQLiteHelper conn;//para connectar con la base de datos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,43 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
         //Adapter para el Spinner de Actividades
         ArrayAdapter<CharSequence> adaptadorSpinnerA = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listaSpinnerActividad);
         actividades.setAdapter(adaptadorSpinnerA);
+        
+        //para seleccionar los elementos del spinner
+        fechas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v,
+					int position, long id) {
+				if(position>=1)
+				{
+					addfecha=(Fecha)listaFecha.get(position-1);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        actividades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View v,
+					int position, long id) {
+				if(position>=1)
+				{
+					addActividad=(Actividad)listaActividad.get(position-1);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
     }
     //
     private void consultarListaActividad() {
@@ -87,7 +127,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
     	Actividad a = new Actividad();
     	for (int i = 0; i < listaActividad.size(); i++) {
 			a=listaActividad.get(i);
-			listaSpinnerActividad.add(a.getIdAct()+""+a.getDescripcion());
+			listaSpinnerActividad.add(a.getIdAct()+"-"+a.getDescripcion());
 		}
 	}
 	//
@@ -127,6 +167,8 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+	
+	// este es el onClick de todos los views que estan con el setOnclickListener
 	@Override
 	public void onClick(View v) {
 		switch(v.getId())
@@ -146,9 +188,24 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 			}break;
 			case(R.id.addSequih):
 			{
-				Toast.makeText(this,hr+":"+min,Toast.LENGTH_SHORT).show();
+				adicionarSeQuiereHacer();
 			}
 		}
 	}
-    
+	private void adicionarSeQuiereHacer() {
+		SQLiteDatabase db2 = conn.getWritableDatabase();
+		String insert ="INSERT INTO " +utilidades.TABLA_SEQUIEREHACER+"(" +
+														utilidades.CAMPO_IDF+"," +
+														utilidades.CAMPO_IDACT+"," +
+														utilidades.CAMPO_HORA2+"," +
+														utilidades.CAMPO_MINUTO2+") " +
+									"VALUES " +
+									"("+addfecha.getIdf()+"," +
+										addActividad.getIdAct()+"," +
+										hr+"," +
+										min+")";
+		db2.execSQL(insert);
+		db2.close();
+		Toast.makeText(this, "se adiciono correctamente", Toast.LENGTH_SHORT).show();
+	}
 }

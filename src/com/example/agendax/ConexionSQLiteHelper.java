@@ -20,6 +20,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{// hereda de la clase
 		db.execSQL(utilidades.CREAR_TABLA_ACTIVIDAD);
 		db.execSQL(utilidades.CREAR_TABLA_FECHA);
 		db.execSQL(utilidades.CREAR_TABLA_SEHACE);
+		db.execSQL(utilidades.CREAR_TABLA_SEQUIEREHACER);
 	}
 
 	@Override
