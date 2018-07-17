@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entidades.Actividad;
 import entidades.Fecha;
+import entidades.SeQuiereHacer;
 
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,6 +30,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 	
 	TextView hora;
 	Button addsequih;
+	
 	int hr;
 	int min;
 	//vars para el spiner de fechas
@@ -43,6 +46,16 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 	//vars para almacenar los datos que se seleccione del Spinner
 	Fecha addfecha;
 	Actividad addActividad;
+	//
+	//vars para el Listview de la consulta de SEQUIEREHACER
+	ListView listaSeQuiH;
+	ArrayList<SeQuiereHacer> listaSqh;
+	ArrayList<Fecha> listaSqhFecha;
+	ArrayList<Actividad> listaSqhActividad;
+	ArrayList<String> listaListviewSQH;
+	ArrayAdapter adaptadorListviewsqh;
+	//
+	//
 	ConexionSQLiteHelper conn;//para connectar con la base de datos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +68,9 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
         hora.setOnClickListener(this);
         fechas=(Spinner)findViewById(R.id.fechas);
         actividades=(Spinner)findViewById(R.id.actividades);
-        
+        listaSeQuiH=(ListView)findViewById(R.id.listaSeQuiH);
+      
+        consultarListaSeQuiH();
         consultarListaFechas();//procedimiento para consultar a la tabla FECHA
         //adapter para el Spinner de fechas
         ArrayAdapter<CharSequence> adaptadorSpinnerF = new ArrayAdapter(this, android.R.layout.simple_spinner_item,listaSpinnerfechas);
@@ -65,7 +80,9 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
         //Adapter para el Spinner de Actividades
         ArrayAdapter<CharSequence> adaptadorSpinnerA = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listaSpinnerActividad);
         actividades.setAdapter(adaptadorSpinnerA);
-        
+      //Adapter para el ListView de SeQuiereHacer Consulta SQHaf
+        adaptadorListviewsqh = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listaListviewSQH);
+        listaSeQuiH.setAdapter(adaptadorListviewsqh);
         //para seleccionar los elementos del spinner
         fechas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -101,6 +118,8 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 				
 			}
 		});
+        
+        
         
     }
     //
@@ -186,14 +205,52 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 				},hr, min,false);
 				timePickerDialog.show();
 			}break;
-			case(R.id.addSequih):
+			case(R.id.addSequih)://  para llenar la tabla SEQUIEREHACER y consultar a la bd llenar el list view
 			{
 				adicionarSeQuiereHacer();
+				consultarListaSeQuiH();
 			}
 		}
 	}
+	private void consultarListaSeQuiH() {
+		SQLiteDatabase db= conn.getReadableDatabase();
+		Actividad sqhActividad=null;
+		Fecha sqhFecha=null;
+		SeQuiereHacer sqh=null;
+		listaSqhActividad=new ArrayList<Actividad>();
+		listaSqhFecha= new ArrayList<Fecha>();
+		listaSqh = new ArrayList<SeQuiereHacer>();
+		Cursor cursor=db.rawQuery("SELECT s."+utilidades.CAMPO_IDF+",s."+utilidades.CAMPO_IDACT+",s."+utilidades.CAMPO_HORA2+",s."+utilidades.CAMPO_MINUTO2+",a."+utilidades.CAMPO_DESCRIPCION+",f."+utilidades.CAMPO_DIA+",f."+utilidades.CAMPO_MES+",f."+utilidades.CAMPO_ANO+
+				" FROM "+utilidades.TABLA_SEQUIEREHACER+" s,"+utilidades.TABLA_ACTIVIDAD+" a,"+utilidades.TABLA_FECHA+" f" +
+				" WHERE s."+utilidades.CAMPO_IDF+" = "+"f."+utilidades.CAMPO_IDF+
+				" AND s."+utilidades.CAMPO_IDACT+" = "+"a."+utilidades.CAMPO_IDACT, null);
+		while(cursor.moveToNext())
+		{
+			sqh = new SeQuiereHacer(cursor.getInt(1), cursor.getInt(0), cursor.getInt(2), cursor.getInt(3));
+			sqhActividad = new Actividad(cursor.getInt(1), cursor.getString(4));
+			sqhFecha = new Fecha(cursor.getInt(0), cursor.getInt(5), cursor.getInt(6), cursor.getInt(7));
+			listaSqh.add(sqh);
+			listaSqhActividad.add(sqhActividad);
+			listaSqhFecha.add(sqhFecha);
+			
+		
+		}
+		obtenetlistaSQHaf();
+		adaptadorListviewsqh = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listaListviewSQH);
+		listaSeQuiH.setAdapter(adaptadorListviewsqh);
+	}
+	//para el array de Strings
+	private void obtenetlistaSQHaf() {
+		listaListviewSQH = new ArrayList<String>();
+		for (int i = 0; i < listaSqh.size(); i++) {
+			listaListviewSQH.add(listaSqhFecha.get(i).getIdf()+"-"+listaSqhFecha.get(i).getDia()+"/"+listaSqhFecha.get(i).getMes()+"/"+listaSqhFecha.get(i).getAno()+"\n" +
+								listaSqh.get(i).getHora()+":"+listaSqh.get(i).getMinuto()+"\n" +
+								listaSqhActividad.get(i).getIdAct()+"-"+listaSqhActividad.get(i).getDescripcion());
+		}
+	}
+	//
 	private void adicionarSeQuiereHacer() {
-		SQLiteDatabase db2 = conn.getWritableDatabase();
+		SQLiteDatabase db = conn.getWritableDatabase();
 		String insert ="INSERT INTO " +utilidades.TABLA_SEQUIEREHACER+"(" +
 														utilidades.CAMPO_IDF+"," +
 														utilidades.CAMPO_IDACT+"," +
@@ -204,8 +261,8 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 										addActividad.getIdAct()+"," +
 										hr+"," +
 										min+")";
-		db2.execSQL(insert);
-		db2.close();
+		db.execSQL(insert);
+		db.close();
 		Toast.makeText(this, "se adiciono correctamente", Toast.LENGTH_SHORT).show();
 	}
 }

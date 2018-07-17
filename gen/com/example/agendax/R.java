@@ -34,10 +34,10 @@ public final class R {
         public static final int elifecha=0x7f080008;
         public static final int fechas=0x7f08000f;
         public static final int hora=0x7f08000c;
+        public static final int listaSeQuiH=0x7f08000b;
         public static final int sehizo=0x7f08000a;
         public static final int sequierehacer=0x7f080009;
         public static final int textAdiAct=0x7f080001;
-        public static final int textView1=0x7f08000b;
         public static final int textadifecha=0x7f080003;
         public static final int texteliAct=0x7f080005;
         public static final int textelifecha=0x7f080007;
