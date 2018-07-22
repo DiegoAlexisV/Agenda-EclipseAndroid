@@ -54,6 +54,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 	ArrayList<Actividad> listaSqhActividad;
 	ArrayList<String> listaListviewSQH;
 	ArrayAdapter adaptadorListviewsqh;
+	String cadcondiSQL="";
 	//
 	//
 	ConexionSQLiteHelper conn;//para connectar con la base de datos
@@ -92,6 +93,11 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 				if(position>=1)
 				{
 					addfecha=(Fecha)listaFecha.get(position-1);
+					cadcondiSQL="  AND f."+utilidades.CAMPO_IDF+"="+addfecha.getIdf();
+					consultarListaSeQuiH();
+				}
+				else{
+					cadcondiSQL="";
 				}
 			}
 
@@ -223,7 +229,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 		Cursor cursor=db.rawQuery("SELECT s."+utilidades.CAMPO_IDF+",s."+utilidades.CAMPO_IDACT+",s."+utilidades.CAMPO_HORA2+",s."+utilidades.CAMPO_MINUTO2+",a."+utilidades.CAMPO_DESCRIPCION+",f."+utilidades.CAMPO_DIA+",f."+utilidades.CAMPO_MES+",f."+utilidades.CAMPO_ANO+
 				" FROM "+utilidades.TABLA_SEQUIEREHACER+" s,"+utilidades.TABLA_ACTIVIDAD+" a,"+utilidades.TABLA_FECHA+" f" +
 				" WHERE s."+utilidades.CAMPO_IDF+" = "+"f."+utilidades.CAMPO_IDF+
-				" AND s."+utilidades.CAMPO_IDACT+" = "+"a."+utilidades.CAMPO_IDACT, null);
+				" AND s."+utilidades.CAMPO_IDACT+" = "+"a."+utilidades.CAMPO_IDACT+" "+cadcondiSQL, null);
 		while(cursor.moveToNext())
 		{
 			sqh = new SeQuiereHacer(cursor.getInt(1), cursor.getInt(0), cursor.getInt(2), cursor.getInt(3));
